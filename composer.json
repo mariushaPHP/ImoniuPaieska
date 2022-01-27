@@ -1,0 +1,11 @@
+
+  
+{
+    "autoload": {
+      "name": "uab list",
+      "description": "description",
+      "psr-4": {
+        "UAB\\": "app"
+      }
+    }
+  }
