@@ -21,7 +21,7 @@ class Task{
     }
 
     public function createTask($task){
-        $this->id = $task['id'];
+        $this->id = $task["id"];
         $this->pavadinimas = $task['pavadinimas'];
         $this->pvm_kodas = $task['pvm_kodas'];
         $this->adresas = $task['adresas'];
@@ -29,6 +29,8 @@ class Task{
         $this->el_pastas = $task['el_pastas'];
         $this->veikla = $task['veikla'];
         $this->vadovas = $task['vadovas'];
+        echo $this->vadovas;
+        $this->insertTask();
     }
 
     private function insertTask(){
@@ -45,7 +47,7 @@ class Task{
             $stmt->bindParam(':veikla', $this->veikla, PDO::PARAM_STR);
             $stmt->bindParam(':vadovas', $this->vadovas, PDO::PARAM_STR);
             $stmt->execute();
-            header('Location:/');
+            header('Location:/visosImones');
         }catch(PDOException $e){
             echo $e->getMessage();
         }
@@ -60,9 +62,17 @@ class Task{
     public function deleteTask($id){
         $statement = $this->pdo->prepare("DELETE FROM `imones` WHERE id=$id");
         $statement->execute();
-        header('Location:/');
+        header('Location:/visosImones');
         return $statement;
     }
+
+    public function findTask($select, $pavadinimas){
+        $statement = $this->pdo->prepare("SELECT * FROM `imones` WHERE $select LIKE '%$pavadinimas%'");
+        $statement->execute();
+        //header('Location:/');
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /*public function setComplete($id)
     {

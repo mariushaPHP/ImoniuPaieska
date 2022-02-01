@@ -1,15 +1,15 @@
-<?php 
+<?php
 namespace UAB;
 class Router{
     private $routes =[];
     public static function load($file){
-       $router = new static;
-       require $file;
-       return $router;
-   } 
+        $router = new static;
+        require $file;
+        return $router;
+    }
     public function define($routes){
         $this->routes = $routes;
-}
+    }
 
     public function direct($uri)
     {
